@@ -68,6 +68,31 @@ func scm(n1,n2 int) int {
 	return (n1*n2/gcdRec(n1,n2))
 }
 
+// array must be sorted
+func binarySearch(myArray []int, item int, startIndex, endIndex int) int {
+	if endIndex < startIndex {
+		return -1
+	}
+	middleIndex := ( startIndex + endIndex ) / 2
+	if item == myArray[middleIndex] {
+		return middleIndex
+	} else if item < myArray[middleIndex] {
+		return binarySearch(myArray, item, startIndex, middleIndex-1)
+	} else {
+		return binarySearch(myArray, item, middleIndex+1, endIndex)
+	}
+}
+
+func towersOfHanoi(n int, rodFrom, middleRod, rodTo string) {
+	if n == 1 {
+		fmt.Println("plate 1 from " + rodFrom + " to " + rodTo)
+		return
+	}
+	towersOfHanoi(n-1, rodFrom, rodTo, middleRod)
+	fmt.Printf("plate %d from %s to %s\n", n, rodFrom, rodTo)
+	towersOfHanoi(n-1, middleRod, rodFrom, rodTo)
+
+}
 func main(){
 	//fmt.Println(addRec(5))
 	//recHead(5)
@@ -77,5 +102,10 @@ func main(){
 	//fmt.Println(gcdRec(4,6))
 	//fmt.Println(gcdNonRec(4,6))
     //fmt.Println(scm(4,6))
-    
+
+    //myArray := []int{1, 2, 5, 7, 9, 10, 13}
+    //item := 12
+    //fmt.Println(binarySearch(myArray, item, 0, len(myArray)-1))
+
+    towersOfHanoi(3, "A", "B", "C")
 }
